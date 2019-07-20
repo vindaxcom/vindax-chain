@@ -1,0 +1,11 @@
+[Unit]
+Description=vindax daemon serivce
+After=network.target
+
+[Service]
+Type=simple
+User=vindax
+ExecStart=/opt/vindax/vindaxd
+
+[Install]
+WantedBy=multi-user.target

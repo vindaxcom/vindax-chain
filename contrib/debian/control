@@ -1,0 +1,57 @@
+Source: vindax
+Section: utils
+Priority: optional
+Maintainer: Alex D. <balthazar.ad@gmail.com>
+Uploaders: Alex D. <balthazar.ad@gmail.com>
+Build-Depends: debhelper,
+ devscripts,
+ bash-completion,
+ libboost-system-dev,
+ libdb++-dev,
+ libssl-dev,
+ pkg-config,
+ libboost-filesystem-dev,
+ libboost-program-options-dev,
+ libboost-thread-dev,
+ qt4-qmake,
+ libqt4-dev,
+ libqrencode-dev
+Standards-Version: 3.9.2
+Homepage: http://www.novaco.in/
+Vcs-Git: git://github.com/vindax-project/vindax.git
+Vcs-Browser: http://github.com/vindax-project/vindax
+
+Package: vindaxd
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: peer-to-peer network based digital currency - daemon
+ vindax is a free open source peer-to-peer electronic cash system that
+ is completely decentralized, without the need for a central server or
+ trusted parties.  Users hold the crypto keys to their own money and
+ transact directly with each other, with the help of a P2P network to
+ check for double-spending.
+ .
+ By default connects to an IRC network to discover other peers.
+ .
+ Full transaction history is stored locally at each client.  This
+ requires 150+ MiB of space, slowly growing.
+ .
+ This package provides vindaxd, a combined daemon and CLI tool to
+ interact with the daemon.
+
+Package: vindax-qt
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: peer-to-peer network based digital currency - Qt GUI
+ vindax is a free open source peer-to-peer electronic cash system that
+ is completely decentralized, without the need for a central server or
+ trusted parties.  Users hold the crypto keys to their own money and
+ transact directly with each other, with the help of a P2P network to
+ check for double-spending.
+ .
+ By default connects to an IRC network to discover other peers.
+ .
+ Full transaction history is stored locally at each client.  This
+ requires 150+ MiB of space, slowly growing.
+ .
+ This package provides vindax-qt, a GUI for vindax based on Qt.

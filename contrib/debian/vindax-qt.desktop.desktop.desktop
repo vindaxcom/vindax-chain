@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=vindax
+Comment=VD P2P Cryptocurrency
+Exec=/usr/bin/vindax-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/undead80.xpm
+MimeType=x-scheme-handler/vindax;
+Categories=Office;
+Name[en_US]=vindax-qt.desktop.desktop

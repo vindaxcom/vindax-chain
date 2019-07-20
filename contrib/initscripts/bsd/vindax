@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# PROVIDE: vindax
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# vindax_enable (bool): Set to NO by default. Set this variable to YES if you want to enable vindax service.
+# vindax_config (path): Set to /usr/local/etc/vindax.conf by default.
+# vindax_user:  The user account vindax daemon runs as. It uses 'root' user by default.
+# vindax_group: The group account vindax daemon runs as. It uses 'wheel' group by default.
+# vindax_datadir (str): Default to "/var/db/vindax". Base data directory.
+
+. /etc/rc.subr
+
+name=vindax
+rcvar=vindax_enable
+
+: ${vindax_enable:=NO}
+: ${vindax_config=/usr/local/etc/vindax.conf}
+: ${vindax_datadir=/var/db/vindax}
+: ${vindax_user="root"}
+: ${vindax_group="wheel"}
+
+required_files=${vindax_config}
+command=/usr/local/bin/vindaxd
+vindax_chdir=${vindax_datadir}
+pidfile="${vindax_datadir}/vindaxd.pid"
+stop_cmd=vindax_stop
+command_args="-conf=${vindax_config} -datadir=${vindax_datadir} -daemon -pid=${pidfile}"
+start_precmd="${name}_prestart"
+
+vindax_create_datadir()
+{
+	echo "Creating data directory"
+	eval mkdir -p ${vindax_datadir}
+	[ $? -eq 0 ] && chown -R ${vindax_user}:${vindax_group} ${vindax_datadir}
+}
+
+vindax_prestart()
+{
+	if [ ! -d "${vindax_datadir}/." ]; then
+		vindax_create_datadir || return 1
+	fi
+}
+
+vindax_requirepidfile()
+{
+	if [ ! "0`check_pidfile ${pidfile} ${command}`" -gt 1 ]; then
+		echo "${name} not running? (check $pidfile)."
+		exit 1
+	fi
+}
+
+vindax_stop()
+{
+    vindax_requirepidfile
+
+	echo "Stopping ${name}."
+	eval ${command} -conf=${vindax_config} -datadir=${vindax_datadir} stop
+	wait_for_pids ${rc_pid}
+}
+
+load_rc_config $name
+run_rc_command "$1"

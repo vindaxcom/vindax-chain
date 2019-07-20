@@ -1,0 +1,9 @@
+Building VD
+
+See doc/readme-qt.rst for instructions on building VD QT,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of VD.
+
+See doc/build-*.txt for instructions on building vindaxd,
+the intended-for-services, no-graphical-interface, reference
+implementation of VD.
